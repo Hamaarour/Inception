@@ -1,7 +1,7 @@
-FROM debian:latest
+FROM debian:12
 
 # install nginx and all dependencies
-RUN		apt-get update 
+RUN		apt-get update && apt-get upgrade -y
 RUN		apt-get install -y nginx openssl
 
 # create the directory for the ssl certificate
@@ -11,8 +11,6 @@ RUN		apt-get install -y nginx openssl
 RUN openssl req -newkey rsa:2048 -x509 -days 365 -nodes \
     -out /etc/ssl/certs/hamaarou.crt \
     -keyout /etc/ssl/private/hamaarou.key \
-    # -out /etc/nginx/ssl/hamaarou.crt \
-    # -keyout /etc/nginx/ssl/hamaarou.key \
     -subj "/C=MA/ST=BENGURIR/L=BENGURIR/O=42/OU=1337/CN=hamaarou.42.fr"
 
 # copy the nginx configuration file
