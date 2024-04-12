@@ -1,0 +1,62 @@
+version: '3.9'
+services:
+    mariadb:
+        container_name: mariadb # Name of the container
+        networks:               # Network to connect to container
+          - inception
+        build: 
+            context: ./requirements/mariadb  # Path to the Dockerfile	
+            dockerfile: Dockerfile         # Name of the Dockerfile
+            env_file: .env                 # Environment variables
+        volumes:                            
+          - mariadb:/var/lib/mysql        # Volume to store data
+        restart: unless-stopped             # Restart policy
+        expose:                         
+          - "3306"                        # Port to expose
+    nginx:
+        container_name: nginx
+        volumes:
+          -wordpress:/var/www/html
+        networks:
+          - inception
+        depends_on:                         # Wait for wordpress to be ready
+          - wordpress
+        build:
+            context: ./requirements/nginx
+            dockerfile: Dockerfile
+            env_file: .env
+        ports:
+          - "443:443"
+        restart: on-failure         # the container will restart only in the event of a crash.
+    wordpress:
+        container_name: wordpress
+        env_file:
+          - .env
+        volumes:
+          - wordpress:/var/www/html
+        networks:
+          - inception
+        build: 
+            context: ./requirements/wordpress
+            dockerfile: Dockerfile
+        depends_on:
+          - mariadb
+        restart: on-failure
+        expose:
+          - "9000"
+    volumes:
+        wordpress:
+            driver: local   # Local volume
+            driver_opts:
+                type: 'none'
+                o:    'bind'
+                device: 'home/hamaarou/data/wordpress' # Path to store data
+        mariadb:
+            driver: local
+            driver_opts:
+                type: 'none'
+                o:    'bind'    # Bind Mounts are volumes that mount on a host path, and they can be modified by other processes outside of Docker.
+                device: 'home/hamaarou/data/mariadb' 
+    networks:
+        inception:
+            driver: bridge # tells Docker to automatically install rules that will allow the 3 containers to communicate via bridge.
