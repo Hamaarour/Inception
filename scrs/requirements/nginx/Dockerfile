@@ -1,4 +1,4 @@
-FROM debian:12
+FROM debian:bullseye
 
 # install nginx and all dependencies
 RUN		apt-get update && apt-get upgrade -y
