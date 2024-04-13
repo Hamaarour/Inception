@@ -7,22 +7,34 @@ all: up
 
 
 up:
-	mkdir -p /home/hamaarou/data/wordpress
-	mkdir -p /home/hamaarou/data/mariadb
+	@echo "$(GREEN)Starting the containers...$(RESET)"
+	@mkdir -p /home/hamaarou/data/wordpress
+	@mkdir -p /home/hamaarou/data/mariadb
 	docker-compose -f ./scrs/docker-compose.yml  up --build -d
+	@echo "$(LIGHT_GREEN)Containers started successfully!$(RESET)"
 
 down:
+	@echo "$(RED)Stopping the containers...$(RESET)"
 	docker-compose -f ./scrs/docker-compose.yml  down
+	@echo "$(RED)Containers stopped successfully!$(RESET)"
 
 clean:
+	@echo "$(RED)Cleaning the containers...$(RESET)"
 	@docker-compose -f ./scrs/docker-compose.yml down
 	@docker rmi -f `docker images -q`
 	@docker volume rm `docker volume ls -q`
 	@rm -rf /home/hamaarou/data/*
+	@echo "$(RED)Containers cleaned successfully!$(RESET)"
 
 fclean:clean
+	@echo "$(RED)Removing all docker images...$(RESET)"
+	@docker system prune -fa
+	@echo "$(RED)All docker images removed!$(RESET)"
+
+	
 
 
 re: fclean all
 
 .PHONY: all down re clean
+

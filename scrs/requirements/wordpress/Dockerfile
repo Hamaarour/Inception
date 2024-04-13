@@ -1,13 +1,24 @@
 FROM debian:bullseye
 
+WORKDIR /var/www/html
 
 RUN apt-get update && \
-    apt-get install -y wget curl unzip php7.4 php7.4-fpm php7.4-mysql mariadb-client && \
-    mkdir -p /run/php/
+    apt-get install -y php-fpm php7.4-mysqli wget mariadb-client
 
-COPY ./conf/php-fpm.conf /etc/php/7.4/fpm/pool.d/www.conf
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
+RUN chmod +x wp-cli.phar
 
-COPY ./tools/wp_install.sh /wp_install.sh
+RUN mv wp-cli.phar /usr/local/bin/wp
 
-CMD ["bash", "/wp_install.sh"]
+RUN wp core download --allow-root
+
+COPY tools/wp_script.sh .
+
+RUN mkdir /run/php/
+
+EXPOSE 9000
+
+RUN echo "listen = wordpress:9000" >> /etc/php/7.4/fpm/php-fpm.conf
+
+CMD ["bash", "wp_script.sh"]

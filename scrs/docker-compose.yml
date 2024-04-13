@@ -12,7 +12,7 @@ services:
     networks:
       - inception_net
     expose:
-      - "3306"
+      - 3306
 
   nginx:
     container_name: nginx
@@ -22,13 +22,13 @@ services:
     env_file:
       - .env
     depends_on:
-      - mariadb
+      - wordpress
     volumes:
       - wordpress:/var/www/html
     networks:
       - inception_net
     ports:
-      - "443:443"
+      - 443:443
 
   wordpress:
     container_name: wordpress
@@ -37,27 +37,27 @@ services:
     restart: on-failure
     env_file:
       - .env
-    depends_on:
-      - mariadb
     volumes:
       - wordpress:/var/www/html
     networks:
       - inception_net
     expose:
-      - "9000"
+      - 9000
 volumes:
   wordpress:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/hamaarou/data/wordpress   # Adjust the path as needed
+      name: wordpress
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: /home/hamaarou/data/wordpress/   # Adjust the path as needed
   mariadb:
+    name: mariadb
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/hamaarou/data/mariadb   # Adjust the path as needed
+      device: /home/hamaarou/data/mariadb/   # Adjust the path as needed
 
 networks:
   inception_net:
