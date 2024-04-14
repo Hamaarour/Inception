@@ -36,14 +36,13 @@ clean:
 	@docker-compose -f ./scrs/docker-compose.yml down
 	@docker rmi -f `docker images -q`
 	@docker volume rm `docker volume ls -q`
-	@rm -rf /home/hamaarou/data/*
+	
 	@echo "$(RED)Containers cleaned successfully!$(RESET)"
 
 fclean:clean
 	@echo "$(RED)Removing all docker images...$(RESET)"
-	sudo chmod -R 777 /home/hamaarou/data/wordpress/*
-	sudo chmod -R 777 /home/hamaarou/data/mariadb/*
-	sudo rm -rf wordpress mariadb
+	@sudo rm -rf /home/hamaarou/data/wordpress
+	@sudo rm -rf /home/hamaarou/data/mariadb
 	@docker system prune -fa
 	@echo "$(RED)All docker images removed!$(RESET)"
 
