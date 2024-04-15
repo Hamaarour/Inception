@@ -2,6 +2,8 @@ GREEN := \033[1;32m
 RED := \033[1;31m
 LIGHT_GREEN := \033[1;92m
 RESET := \033[0m
+YELLOW := \033[1;33m 
+
 
 all: up
 
@@ -29,7 +31,18 @@ start:
 	@echo "$(LIGHT_GREEN)Containers started successfully!$(RESET)"
 
 status:
-	@docker ps
+	@echo "$(GREEN)Containers status...$(RESET)"
+	@clear
+	@echo "\n$(YELLOW)CONTAINERS$(RESET)\n"
+	@docker ps -a
+	@echo "\n$(YELLOW)IMAGES$(RESET)\n"
+	@docker image ls
+	@echo "\n$(YELLOW)VOLUMES$(RESET)\n"
+	@docker volume ls
+	@echo "\n$(YELLOW)NETWORKS$(RESET)\n"
+	@docker network ls --filter "name=$(NAME)_all"
+	@echo ""
+
 
 clean:
 	@echo "$(RED)Cleaning the containers...$(RESET)"
