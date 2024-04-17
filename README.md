@@ -2,6 +2,45 @@
 
 I'm exploring system administration through Docker, virtualizing images in my personal VM for hands-on experience.
 
+# Docker and VMs 
+(Virtual Machines) are both virtualization technologies, but they work in fundamentally different ways. Here's a breakdown of their key differences:
+
+## Level of Virtualization:
+
+### Docker:
+Works at the container level. It packages an application and its dependencies into a lightweight, portable unit called a container. Containers share the host operating system kernel, making them faster to start and use fewer resources.
+### VM:
+Works at the machine level. It creates a complete virtual machine with its own operating system, applications, and files. VMs are more isolated and secure but require more resources and take longer to boot up.
+
+## Resource Usage:
+
+### Docker:
+ Lightweight and efficient. Containers share the host kernel, reducing resource overhead. Multiple containers can run on a single machine, maximizing resource utilization.
+### VM:
+ Resource-intensive. Each VM requires its own operating system, consuming more CPU, memory, and storage. Running multiple VMs can quickly deplete resources on a single machine.
+
+## Isolation:
+
+### Docker:
+ Offers moderate isolation. Containers share the kernel but have their own user space, providing some isolation between applications. However, vulnerabilities in the kernel can affect all containers.
+### VM:
+ Offers high isolation. Each VM has its own operating system, creating a strong barrier between applications and the host machine. This isolation enhances security.
+
+## Use Cases:
+
+### Docker:
+Ideal for microservices architectures, deploying multiple independent applications on a single server. It's also useful for development and testing environments where fast startup times and efficient resource usage are crucial.
+### VM:
+Better suited for running legacy applications that require specific operating systems or for situations where high security is paramount. VMs are also useful for running entire desktop environments or different operating systems altogether.
+
+## Here's an analogy:
+
+### Docker:
+Imagine containers as separate apartments in a building. They share the building's infrastructure (electricity, water) but have their own independent spaces.
+### VM:
+Think of VMs as individual houses on a street. Each house has its own utilities, yard, and structure, offering a higher degree of isolation.
+Choosing between Docker and VMs depends on your specific needs. If you require lightweight, portable environments for microservices or development, Docker is a great choice. If you need high isolation, security, or compatibility with specific operating systems, VMs might be a better fit.
+
 # How does TLS work?
 
 TLS uses public-key cryptography(new window) to verify the authenticity of a website. Every website that uses HTTPS (TLS) generates a mathematically related key pair:
