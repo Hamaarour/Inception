@@ -1,4 +1,4 @@
-version: "3.8"  # Using a supported version (3.8 is the latest stable)
+version: "3.8"  #(3.8 is the latest stable)
 services:
   mariadb:
     container_name: mariadb
@@ -50,15 +50,15 @@ volumes:
       driver_opts:
         type: none
         o: bind
-        device: /home/hamaarou/data/wordpress/   # Adjust the path as needed
+        device: /home/hamaarou/data/wordpress/
   mariadb:
     name: mariadb
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/hamaarou/data/mariadb/   # Adjust the path as needed
+      device: /home/hamaarou/data/mariadb/
 
 networks:
   inception_net:
-    name: inception_net
+    driver: bridge

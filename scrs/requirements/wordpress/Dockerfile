@@ -10,7 +10,7 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 
 RUN mv wp-cli.phar /usr/local/bin/wp
-
+#bypass typical permission checks and allows the download process to run with root privileges
 RUN wp core download --allow-root
 
 COPY tools/wp_script.sh .
