@@ -146,3 +146,12 @@ And if you want to delete a row in a table, run the following command:
 ```sql
 DELETE FROM table_name WHERE column_name = some_value;
 ```
+
+# DOCKER COMPOSE
+
+Choosing between expose and ports:
+
+Use ```expose``` : 
+    when you want containers to communicate with each other on the same Docker network.
+Use ```ports```  :  
+    when you need to access a service running in a container from outside the Docker network, such as your local machine or the internet.

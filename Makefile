@@ -39,8 +39,6 @@ status:
 	@docker image ls
 	@echo "\n$(YELLOW)VOLUMES$(RESET)\n"
 	@docker volume ls
-	@echo "\n$(YELLOW)NETWORKS$(RESET)\n"
-	@docker network ls --filter "name=$(NAME)_all"
 	@echo ""
 
 
